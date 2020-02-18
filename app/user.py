@@ -6,8 +6,8 @@ from app import app
 
 
 # registration
-@app.route('/Home/Register/user/<uuid>', methods=['POST'])
-def addmessage(uuid):
+@app.route('/Home/Register/user', methods=['POST'])
+def addmessage():
     content = request.get_json()
     us = User(name=content['name'], email=content['email'], age=content['age'],city=content['city'], accepted=False)
     db.session.add(us)

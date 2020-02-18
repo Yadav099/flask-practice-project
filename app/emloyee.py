@@ -4,7 +4,7 @@ from app import app
 from flask import request, jsonify
 
 #delete specific user
-@app.route('/Home/comapanylist/',methods=['DELETE'])
+@app.route('/Home/userlist/',methods=['DELETE'])
 def delete_user():
     obj = request.args['deleteuser']
     User.query.filter_by(name=obj).delete()
