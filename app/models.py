@@ -3,10 +3,18 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
+    lastname= db.Column(db.String(64))
+    gender=db.Column(db.String(64))
     email = db.Column(db.String(120))
-    age= db.Column(db.Integer)
+    age = db.Column(db.Integer)
     city= db.Column(db.String(120))
+    state=db.Column(db.String(64))
+    zipcode=db.Column(db.Integer)
+    registerationDate=db.Column(db.DateTime)
+
+    phonenumber=db.Column(db.String(64))
     accepted=db.Column(db.Boolean)
+
 
 class Employee(db.Model):
     e_id= db.Column(db.Integer, primary_key=True)
