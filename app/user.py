@@ -30,7 +30,7 @@ def age(name):
 
 
     # update existing email address
-@app.route('/Home/<name>/changeemail/', methods=['PUT'])
+@app.route('/Home/<name>/updatemail/', methods=['PUT'])
 def update_useremail(name):
     if request.args['email'] != '':
         admin = User.query.filter_by(name=name).first()

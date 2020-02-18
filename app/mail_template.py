@@ -9,10 +9,10 @@ from flask import request, jsonify
 @app.route('/mail',methods=['POST','GET'])
 def html():
     if request.method=='POST':
-        us = MailTemplate(html="<div><h1>Hi ,</h1> </br><p>Thank you for the information</p></div> ")
+        us = MailTemplate(html_first="<div><h1>Hello </h1>",html_middle="</br><p>It was pleasure meeting you ,hope to see you for future buisiness<p>",html_last="</br><p>Thank you</p></br>")
         db.session.add(us)
         db.session.commit()
         return 'pushed'
     else:
-        user = MailTemplate.query.filter_by(h_id=2).first()
-        return user.html
+        user = MailTemplate.query.filter_by(h_id=3).first()
+        return (user.html_first+user.html_middle +user.html_last)

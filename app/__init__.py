@@ -12,3 +12,4 @@ migrate=Migrate(app, db)
 
 
 from app import routes,models
+from app.unit_testing import test_user

@@ -1,8 +1,8 @@
 from app import app
 from flask_mail import Message,Mail
 from app.models import User
-from flask import  jsonify
-
+from flask import request
+from app.models import MailTemplate
 
 
 
@@ -26,14 +26,16 @@ def sendMessage():
 @app.route('/Home/userlist',methods=['GET'])
 def send_touser():
     data=User.query.all()
-    recipients_list=[]
+    if request.args['templateId']=='':
+        templateId=3
+    else:
+        templateId=request.args['templateId']
     for i in data:
-        recipients_list.append(i.email)
-        name=i.name
+        msg = Message('Hello', sender="yourid@gmail.com", recipients=[i.email])
 
-
-    msg = Message('Hello', sender="yourid@gmail.com", recipients=recipients_list)
-    msg.body = "Thank you for the support "+
-    msg.subject = 'Message to '+name
-    mail.send(msg)
+        user = MailTemplate.query.filter_by(h_id=templateId).first()
+        message=user.html_first+i.name+user.html_middle+user.html_last+i.name
+        msg.html =message
+        msg.subject = 'Message to '
+        mail.send(msg)
     return "sent"

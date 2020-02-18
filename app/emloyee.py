@@ -25,13 +25,13 @@ def add_employee():
     return 'Data acquired'
 
 # update existing email address
-# @app.route('/Home/<e_name>/changeemail', methods=['PUT'])
-# def update_email(e_name):
-#     if request.args['e_email'] != '':
-#         admin = Employee.query.filter_by(e_name=e_name).first()
-#         admin.e_email = request.args['e_email']
-#         db.session.commit()
-#         return 'updated e_email ' +request.args['e_email']
+@app.route('/Home/<e_name>/changmail', methods=['PUT'])
+def update_email(e_name):
+    if request.args['e_email'] != '':
+        admin = Employee.query.filter_by(e_name=e_name).first()
+        admin.e_email = request.args['e_email']
+        db.session.commit()
+        return 'updated e_email ' +request.args['e_email']
 
     # check your profile data
 @app.route('/Home/Profile/<e_name>/', methods=['GET'])

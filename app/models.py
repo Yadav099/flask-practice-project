@@ -16,4 +16,6 @@ class Employee(db.Model):
 
 class MailTemplate(db.Model):
     h_id= db.Column(db.Integer, primary_key=True)
-    html = db.Column(db.String(128))
+    html_first = db.Column(db.String(128))
+    html_middle = db.Column(db.String(128))
+    html_last = db.Column(db.String(128))
