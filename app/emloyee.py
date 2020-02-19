@@ -4,12 +4,12 @@ from app import app
 from flask import request, jsonify
 
 #delete specific user
-@app.route('/Home/userlist/',methods=['DELETE'])
+@app.route('/Home/userlist',methods=['DELETE'])
 def delete_user():
     obj = request.args['deleteuser']
     User.query.filter_by(name=obj).delete()
     db.session.commit()
-    return obj+" deleted."
+    return " deleted"
 
 
 
@@ -34,11 +34,13 @@ def update_email(e_name):
         return 'updated e_email ' +request.args['e_email']
 
     # check your profile data
-@app.route('/Home/Profile/Employee/<e_name>/', methods=['GET'])
+@app.route('/Home/Profile/Employee/<e_name>', methods=['GET'])
 def check_profile(e_name):
 
     user = Employee.query.filter_by(e_name=e_name).first()
-    e_email = user.e_email
-    e_password = user.e_password
-    return " Name:" + e_name + ", mail id:" + e_email + ",  Age:" + e_password
+    if user!=None:
+        return " Name:" + e_name + ", mail id:" +   user.e_email + ",  Age:" + user.e_password
+    else:
+        return "no data"
+
 #delete update

@@ -1,9 +1,17 @@
 from flask import Flask
 from flask_migrate import Migrate
-from config import Config
+from config import Config, app_config
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+def create_app(config_name):
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_pyfile('/home/yadav_padiyar/final/microblog/config.py')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    return app
+
+app = create_app(config_name="testing")
+
+# app = Flask(__name__)
 
 app.config.from_object(Config)
 db = SQLAlchemy(app)

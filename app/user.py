@@ -18,15 +18,15 @@ def addmessage():
 
 
     # update existing age
-@app.route('/Home/<name>/changeage/', methods=['PUT'])
+@app.route('/Home/<name>/changeage', methods=['PUT'])
 def age(name):
-    if request.args['age'] != '':
+   if  request.args['age'] ==None:
+        return "NO Changes"
+   else:
         admin = User.query.filter_by(name=name).first()
         admin.age = request.args['age']
         db.session.commit()
-        return 'updated age' + request.args['age']
-
-
+        return 'updated age'
 
 
     # update existing email address

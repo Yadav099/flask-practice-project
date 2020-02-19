@@ -9,7 +9,7 @@ from app.models import Products
 
 
 # Register product with csv
-@app.route('/Home/Register/Productcsv', methods=['POST'])
+@app.route('/Home/Register/Productcsv/', methods=['POST'])
 def ordercsv():
     f = request.files['Product']
     if not f:
@@ -25,19 +25,22 @@ def ordercsv():
 
 
    # check your product data
-@app.route('/Home', methods=['GET'])
+@app.route('/Home/Products', methods=['GET'])
 def checkproductprofile():
     id=request.args['id']
     user = Products.query.filter_by(id=id).first()
-    message=" Name:" + user.productName + "</br> SKU:" + user.SKU + "</br> brand:"+user.brand+"</br> Product Description"+user.productDescription;
-    return message
+    if user==None:
+        return "No data"
+    else:
+        message=" Name:" + user.productName + "</br> SKU:" + user.SKU + "</br> brand:"+user.brand+"</br> Product Description"+user.productDescription;
+        return message
 
 
 
 
 
 # registration of customers using csv
-@app.route('/Home/Register/Customercsv', methods=['POST'])
+@app.route('/Home/Register/Customercsv/', methods=['POST'])
 def customercsv():
     f = request.files['Customer']
     if not f:
@@ -49,14 +52,16 @@ def customercsv():
         us = User(id=row['id'],name=row['first_name'],lastname=row['last_name'],gender=row['gender'], email=row['email'], age=row['age'], city=row['address'],state=row['state'],zipcode=row['zipcode'],phonenumber=row['phoneNumber'],registerationDate=row['registerationDate'],accepted=False)
         db.session.add(us)
         db.session.commit()
-    return 'Data acquired'
+    return 'Data aquired'
 
 
    # check your profile data
-@app.route('/Home/Profile/Customer/<name>', methods=['GET'])
+@app.route('/Home/Profile/Customercsv/<name>', methods=['GET'])
 def checkuserprofile(name):
 
     user = User.query.filter_by(name=name).first()
-    message=" Name:" + user.name + "</br> mail id:" + user.email + "</br>  Age:" + format(user.age)+"</br> Address:"+user.city;
-    return message
-
+    if user!=None:
+        message=" Name:" + user.name + "</br> mail id:" + user.email + "</br>  Age:" + format(user.age)+"</br> Address:"+user.city;
+        return message
+    else:
+        return "No data"

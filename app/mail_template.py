@@ -14,5 +14,9 @@ def html():
         db.session.commit()
         return 'pushed'
     else:
+
         user = MailTemplate.query.filter_by(h_id=3).first()
-        return (user.html_first+user.html_middle +user.html_last)
+        if user!=None:
+            return (user.html_first+user.html_middle +user.html_last)
+        else:
+            return "no data"

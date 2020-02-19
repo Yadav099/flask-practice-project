@@ -21,4 +21,4 @@ def reviewcsv():
         us = Review(r_id=row['id'], userProductId=row['userProductId'], productRating=row['productRating'],reviewTitle=row['reviewTitle'],reviewDetails=row['reviewDetails'])
         db.session.add(us)
         db.session.commit()
-    return "done"
+    return "Data aquired"
