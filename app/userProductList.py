@@ -10,7 +10,7 @@ from app.models import UserProductView
 
 
 # Register product with csv
-@app.route('/Home/OrdersList', methods=['POST'])
+@app.route('/Home/Orderslist', methods=['POST'])
 def userproduct():
     f = request.files['UserProductList']
     if not f:
@@ -21,4 +21,4 @@ def userproduct():
         us = UserProductView(up_id=row['id'], userId=row['userId'], productId=row['productId'],quantity=row['quantity'],o_id=row['orderId'])
         db.session.add(us)
         db.session.commit()
-    return "done"
+    return "Data aquired"

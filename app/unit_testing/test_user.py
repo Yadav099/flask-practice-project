@@ -54,24 +54,29 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(b'Data acquired', response.data)
 
-#update age
-    # def test_update_useragel(self):
-    #
-    #     response=self.app.put("/Home/abc/changeage?age=20")
-    #
-    #     self.assertEqual(response.status_code, 200)
-    #
-    #     # self.assertEqual(b'NO Changes', response.data)
+    # update age
+    def test_update_userage(self):
 
-    #
-    # def test_update_city(self):
-    #     data = {
-    #         'city': 'asdff'
-    #     }
-    #     response = self.app.put("/Home/abc/changecity/", query_string=data)
-    #
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(b'updated age', response.data)
+        response=self.app.put('/Home/abc/changeage/?age=20')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'NO Changes', response.data)
+
+    #update email of user
+
+    def test_update_email(self):
+        response = self.app.put("/Home/abc/updatemail/?email=abc@xyz.com")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'No changes', response.data)
+
+    #testing update of state
+
+    def test_update_state(self):
+
+        response = self.app.put('/Home/abc/changestate/?state=data')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'No changes', response.data)
 
     #testing delete user/customer
     def test_delete_user(self):
@@ -142,6 +147,19 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(b"No data", response.data)
 
+    # testing pushing user product list data into database
+    def test_userproductcsv(self):
+        data = {
+            'UserProductList': (BytesIO(b'FILE CONTENT'), 'test.csv')
+        }
+
+        response = self.app.post('/Home/Orderslist', content_type='multipart/form-data', buffered=True,
+                                 data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b"Data aquired", response.data)
+
+
+
     #testing the uploading review csv file into database
     def test_reviewcsv(self):
         data = {
@@ -154,6 +172,18 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(b"Data aquired", response.data)
 
     #testing to send static mail
+    def test_templatehtml(self):
+        response = self.app.get('/mail/sent')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b"sent", response.data)
+
+    # testing to send dynamic mail
+    def test_dynamichtml(self):
+        response = self.app.get('/Home/userlist?templateId=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b"sent", response.data)
+
+
 
 if __name__ == "__main__":
     unittest.main()

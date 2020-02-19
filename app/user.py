@@ -18,13 +18,13 @@ def addmessage():
 
 
     # update existing age
-@app.route('/Home/<name>/changeage', methods=['PUT'])
+@app.route('/Home/<name>/changeage/', methods=['PUT'])
 def age(name):
-   if  request.args['age'] ==None:
+   if  request.args['age']:
         return "NO Changes"
    else:
-        admin = User.query.filter_by(name=name).first()
-        admin.age = request.args['age']
+        user = User.query.filter_by(name=name).first()
+        user.age = request.args['age']
         db.session.commit()
         return 'updated age'
 
@@ -32,7 +32,9 @@ def age(name):
     # update existing email address
 @app.route('/Home/<name>/updatemail/', methods=['PUT'])
 def update_useremail(name):
-    if request.args['email'] != '':
+    if request.args['email'] :
+        return "No changes"
+    else:
         admin = User.query.filter_by(name=name).first()
         admin.email = request.args['email']
         db.session.commit()
@@ -40,11 +42,13 @@ def update_useremail(name):
 
 
     # update existing address
-@app.route('/Home/<name>/changecity/', methods=['PUT'])
+@app.route('/Home/<name>/changestate/', methods=['PUT'])
 def update_city(name):
-    if request.args['city'] != '':
+    if request.args['state'] :
+        return "No changes"
+    else:
         admin = User.query.filter_by(name=name).first()
-        admin.city = request.args['city']
+        admin.state = request.args['state']
         db.session.commit()
-        return 'updated city' + request.args['city']
+        return 'updated state' + request.args['state']
 
