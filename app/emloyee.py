@@ -34,7 +34,7 @@ def update_email(e_name):
         return 'updated e_email ' +request.args['e_email']
 
     # check your profile data
-@app.route('/Home/Profile/<e_name>/', methods=['GET'])
+@app.route('/Home/Profile/Employee/<e_name>/', methods=['GET'])
 def check_profile(e_name):
 
     user = Employee.query.filter_by(e_name=e_name).first()
