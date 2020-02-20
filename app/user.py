@@ -18,37 +18,82 @@ def addmessage():
 
 
     # update existing age
-@app.route('/Home/<name>/changeage/', methods=['PUT'])
+@app.route('/Home/<name>/Edit/age', methods=['PUT'])
 def age(name):
-   if  request.args['age']:
-        return "NO Changes"
-   else:
+   if  request.args['age']!=None:
         user = User.query.filter_by(name=name).first()
-        user.age = request.args['age']
-        db.session.commit()
-        return 'updated age'
+        if user!= None:
+            user.age = request.args['age']
+            db.session.commit()
+            return 'updated age'
+        else:
+            return "No Changes"
+   else:
+        return "No Changes"
 
 
     # update existing email address
-@app.route('/Home/<name>/updatemail/', methods=['PUT'])
+@app.route('/Home/<name>/Edit/mail', methods=['PUT'])
 def update_useremail(name):
-    if request.args['email'] :
-        return "No changes"
+    if request.args['email']!=None :
+        user = User.query.filter_by(name=name).first()
+        if user:
+            user.email = request.args['email']
+            db.session.commit()
+            return 'updated email'
+        else:
+            return 'No data changed'
     else:
-        admin = User.query.filter_by(name=name).first()
-        admin.email = request.args['email']
-        db.session.commit()
-        return 'updated email' + request.args['email']
+        return 'No data changed'
 
 
     # update existing address
-@app.route('/Home/<name>/changestate/', methods=['PUT'])
-def update_city(name):
-    if request.args['state'] :
-        return "No changes"
+@app.route('/Home/<name>/Edit/state', methods=['PUT'])
+def update_state(name):
+    if request.args['region']:
+        user = User.query.filter_by(name=name).first()
+        if user:
+            user.state = request.args['region']
+            db.session.commit()
+            return 'updated state'
+        else:
+            return 'No changes'
     else:
-        admin = User.query.filter_by(name=name).first()
-        admin.state = request.args['state']
-        db.session.commit()
-        return 'updated state' + request.args['state']
+        return "No changes"
 
+@app.route('/Home/<name>/Edit/zipcode', methods=['PUT'])
+def update_zipcode(name):
+    if request.args['zipcode'] :
+        user = User.query.filter_by(name=name).first()
+        if user:
+            user.zipcode = request.args['zipcode']
+            db.session.commit()
+            return 'updated zipcode'
+        else:
+            return 'No changes'
+    else:
+        return "No changes"
+
+@app.route('/Home/<name>/Edit/Phonenumber', methods=['PUT'])
+def update_phonenumber(name):
+    if request.args['Phonenumber']:
+        user = User.query.filter_by(name=name).first()
+        if user:
+            user.Phonenumber = request.args['Phonenumber']
+            db.session.commit()
+            return 'updated Phonenumber'
+        else:
+            return 'No changes'
+    else:
+        return "No changes"
+
+
+    # check your profile data
+@app.route('/Home/Profile/User/<name>', methods=['GET'])
+def check_userprofile(name):
+
+    user = User.query.filter_by(name=name).first()
+    if user!=None:
+        return " Name:" + name + "</br> mail id:" +user.email + "</br>  Age:" + format(user.age)+"</br> State:"+user.state+"</br> Phonenumber:"+user.Phonenumber+"</br> Zip c:"+user.state
+    else:
+        return "no data"

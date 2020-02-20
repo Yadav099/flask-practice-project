@@ -8,6 +8,7 @@ from flask import url_for
 
 from app import app, db
 
+
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -57,24 +58,33 @@ class BasicTests(unittest.TestCase):
     # update age
     def test_update_userage(self):
 
-        response=self.app.put('/Home/abc/changeage/?age=20')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(b'NO Changes', response.data)
+        response=self.app.put('/Home/abc/Edit/age?age=20')
+        # self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'No Changes', response.data)
 
-    #update email of user
+    # update email of user
 
     def test_update_email(self):
-        response = self.app.put("/Home/abc/updatemail/?email=abc@xyz.com")
+        response = self.app.put('/Home/abc/Edit/mail?email=abc@xyz.com')
 
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'No data changed', response.data)
+
+    # testing update of state
+    def test_update_state(self):
+        response = self.app.put('/Home/abc/Edit/state?region=data')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(b'No changes', response.data)
 
-    #testing update of state
+    # testing update of zipcode
+    def test_update_zipcode(self):
+        response = self.app.put('/Home/abc/Edit/zipcode?zipcode=data')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'No changes', response.data)
 
-    def test_update_state(self):
-
-        response = self.app.put('/Home/abc/changestate/?state=data')
-
+     # testing update of phone number
+    def test_update_phonenumber(self):
+        response = self.app.put('/Home/abc/Edit/Phonenumber?Phonenumber=data')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(b'No changes', response.data)
 

@@ -26,6 +26,7 @@ def ordercsv():
 
    # check your product data
 @app.route('/Home/Products', methods=['GET'])
+
 def checkproductprofile():
     id=request.args['id']
     user = Products.query.filter_by(id=id).first()
