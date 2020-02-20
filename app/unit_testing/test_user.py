@@ -93,7 +93,7 @@ class BasicTests(unittest.TestCase):
         response = self.app.delete('/Home/userlist?deleteuser=abc',)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(b' deleted', response.data)
+        self.assertEqual(b'User deleted', response.data)
 
 
     #testing to add employee in database
@@ -104,6 +104,20 @@ class BasicTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(b'Data acquired', response.data)
+
+        # testing delete user/customer
+    def test_delete_employee(self):
+        response = self.app.delete('/Home/employeelist?deleteemployee=abc', )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'Employee deleted', response.data)
+
+    #testing to add employee in database
+    def test_update_employee_email(self):
+        response = self.app.put('/Home/abc/Edit/mail/?e_email=abc')
+        # self.assertEqual(response.status_code, 200)
+        self.assertEqual(b'No data changed', response.data)
+
 
     #testing to fetech data from database
     def test_view_employee(self):

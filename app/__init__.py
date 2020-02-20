@@ -2,6 +2,8 @@ from flask import Flask
 from flask_migrate import Migrate
 from config import Config, app_config
 from flask_sqlalchemy import SQLAlchemy
+#imported required libraries
+
 
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
@@ -9,15 +11,16 @@ def create_app(config_name):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     return app
 
+#create app which is used as decorator in routing
 app = create_app(config_name="testing")
 
-# app = Flask(__name__)
-
 app.config.from_object(Config)
+
+#getting the database and migrate object
 db = SQLAlchemy(app)
-# migrate=Migrate(app, db)
 migrate = Migrate(compare_type=True)
 migrate.init_app(app, db)
 
-from app import routes, models
+#import of routing,database and testing related files
+from app import Routes, models
 from app.unit_testing import test_user
